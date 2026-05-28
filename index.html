@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>E-Commerce Website</title>
+  <title>YouTube Clone</title>
 
   <style>
     *{
@@ -14,179 +14,275 @@
     }
 
     body{
-      background:#f5f5f5;
+      background:#f1f1f1;
     }
 
+    /* HEADER */
+
     header{
-      background:#0f172a;
-      color:white;
-      padding:15px 40px;
       display:flex;
       justify-content:space-between;
       align-items:center;
+      padding:15px 30px;
+      background:white;
+      position:sticky;
+      top:0;
+      z-index:100;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
     }
 
     .logo{
       font-size:28px;
       font-weight:bold;
-      color:#38bdf8;
+      color:red;
     }
 
-    nav a{
-      color:white;
-      text-decoration:none;
-      margin-left:20px;
-      font-size:18px;
-    }
-
-    .hero{
-      height:300px;
-      background:linear-gradient(to right,#1e3a8a,#2563eb);
-      color:white;
+    .search-box{
       display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      text-align:center;
+      width:50%;
     }
 
-    .hero h1{
-      font-size:50px;
-      margin-bottom:10px;
+    .search-box input{
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:5px 0 0 5px;
+      outline:none;
     }
 
-    .hero p{
-      font-size:20px;
+    .search-box button{
+      padding:10px 20px;
+      border:none;
+      background:red;
+      color:white;
+      cursor:pointer;
+      border-radius:0 5px 5px 0;
     }
 
-    .products{
-      padding:40px;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:25px;
+    /* MAIN LAYOUT */
+
+    .container{
+      display:flex;
     }
 
-    .card{
+    /* SIDEBAR */
+
+    .sidebar{
+      width:220px;
       background:white;
-      border-radius:10px;
-      overflow:hidden;
-      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      height:100vh;
+      padding:20px;
+      position:sticky;
+      top:70px;
+    }
+
+    .sidebar ul{
+      list-style:none;
+    }
+
+    .sidebar ul li{
+      padding:12px;
+      margin-bottom:10px;
+      border-radius:8px;
+      cursor:pointer;
       transition:0.3s;
     }
 
-    .card:hover{
-      transform:translateY(-5px);
+    .sidebar ul li:hover{
+      background:#e5e5e5;
     }
 
-    .card img{
+    /* CONTENT */
+
+    .content{
+      flex:1;
+      padding:20px;
+    }
+
+    /* VIDEO PLAYER */
+
+    .video-player{
+      background:white;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:25px;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* VIDEO GRID */
+
+    .video-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:20px;
+    }
+
+    .video-card{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      transition:0.3s;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .video-card:hover{
+      transform:scale(1.03);
+    }
+
+    .video-card img{
       width:100%;
-      height:220px;
+      height:180px;
       object-fit:cover;
     }
 
-    .card-content{
-      padding:20px;
+    .video-info{
+      padding:15px;
     }
 
-    .card h3{
+    .video-info h3{
       margin-bottom:10px;
+      font-size:18px;
     }
 
-    .price{
-      color:green;
-      font-size:22px;
-      margin-bottom:15px;
+    .video-info p{
+      color:gray;
+      font-size:14px;
     }
 
-    button{
-      background:#2563eb;
-      color:white;
-      border:none;
-      padding:10px 15px;
-      border-radius:5px;
-      cursor:pointer;
-      font-size:16px;
-    }
+    /* RESPONSIVE */
 
-    button:hover{
-      background:#1d4ed8;
-    }
+    @media(max-width:768px){
 
-    footer{
-      background:#0f172a;
-      color:white;
-      text-align:center;
-      padding:20px;
-      margin-top:30px;
-    }
+      .sidebar{
+        display:none;
+      }
 
-    #cart{
-      font-weight:bold;
-      color:#38bdf8;
+      .search-box{
+        width:70%;
+      }
+
+      header{
+        padding:15px;
+      }
+
     }
   </style>
 </head>
+
 <body>
 
-  <header>
-    <div class="logo">AnwarShop</div>
+  <!-- HEADER -->
 
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">Contact</a>
-      <a href="#">Cart: <span id="cart">0</span></a>
-    </nav>
+  <header>
+
+    <div class="logo">
+      YouTube
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search videos...">
+      <button onclick="searchVideo()">Search</button>
+    </div>
+
   </header>
 
-  <section class="hero">
-    <h1>Welcome to AnwarShop</h1>
-    <p>Best Products at Amazing Prices</p>
-  </section>
+  <!-- CONTAINER -->
 
-  <section class="products">
+  <div class="container">
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="">
-      <div class="card-content">
-        <h3>Nike Shoes</h3>
-        <div class="price">₹2999</div>
-        <button onclick="addToCart()">Add to Cart</button>
-      </div>
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+      <ul>
+        <li>🏠 Home</li>
+        <li>🔥 Trending</li>
+        <li>🎵 Music</li>
+        <li>🎮 Gaming</li>
+        <li>📺 Subscriptions</li>
+        <li>📚 Library</li>
+      </ul>
     </div>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" alt="">
-      <div class="card-content">
-        <h3>Smart Watch</h3>
-        <div class="price">₹1999</div>
-        <button onclick="addToCart()">Add to Cart</button>
+    <!-- CONTENT -->
+
+    <div class="content">
+
+      <!-- VIDEO PLAYER -->
+
+      <div class="video-player">
+        <iframe 
+          width="100%" 
+          height="400"
+          src="https://www.youtube.com/embed/tgbNymZ7vqY"
+          title="YouTube video player"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
       </div>
+
+      <!-- VIDEO GRID -->
+
+      <div class="video-grid">
+
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/tgbNymZ7vqY/hqdefault.jpg">
+
+          <div class="video-info">
+            <h3>Nature Video</h3>
+            <p>1M views • 2 days ago</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg">
+
+          <div class="video-info">
+            <h3>Music Video</h3>
+            <p>500K views • 1 week ago</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/3JZ_D3ELwOQ/hqdefault.jpg">
+
+          <div class="video-info">
+            <h3>Top Songs</h3>
+            <p>900K views • 5 days ago</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <img src="https://i.ytimg.com/vi/fRh_vgS2dFE/hqdefault.jpg">
+
+          <div class="video-info">
+            <h3>Entertainment Video</h3>
+            <p>2M views • 1 month ago</p>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="">
-      <div class="card-content">
-        <h3>iPhone</h3>
-        <div class="price">₹69999</div>
-        <button onclick="addToCart()">Add to Cart</button>
-      </div>
-    </div>
+  </div>
 
-  </section>
-
-  <footer>
-    <p>© 2026 AnwarShop | All Rights Reserved</p>
-  </footer>
+  <!-- JAVASCRIPT -->
 
   <script>
-    let count = 0;
 
-    function addToCart(){
-      count++;
-      document.getElementById("cart").innerText = count;
-      alert("Product Added to Cart");
+    function searchVideo(){
+
+      let input = document.getElementById("searchInput").value;
+
+      if(input === ""){
+        alert("Please enter video name");
+      }
+      else{
+        alert("Searching for: " + input);
+      }
+
     }
+
   </script>
 
 </body>
